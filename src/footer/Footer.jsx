@@ -1,7 +1,7 @@
 import React from "react";
 import logo_youtube from "../assets/youtube.png"
 import logo_telegram from "../assets/telegram.png"
-import logo_vk from "../assets/vk.png"
+import logo_thread from "../assets/threads.png"
 import logo_inst from "../assets/inst.png"
 
 const Footer = () => {
@@ -24,18 +24,18 @@ const Footer = () => {
           <h4 className="text-lg font-bold mb-4">Следите за нами</h4>
           <ul className="space-y-2">
             <li className="flex items-center space-x-4">
-                <img className="w-7 h-7" src={logo_vk} alt="VK" />
-                <a href="#" className="hover:text-gray-300">VK</a></li>
+                <img className="w-7 h-7" src={logo_thread} alt="thread" />
+                <a href="https://www.threads.net/@hyundai" target="_blank" className="hover:text-gray-300">Thread</a></li>
             <li className="flex items-center space-x-4">
                 <img className="w-7 h-7" src={logo_youtube} alt="YT" />
-                <a href="#" className="hover:text-gray-300">YouTube</a>
+                <a href="https://www.youtube.com/@HyundaiWorldwide" target="_blank" className="hover:text-gray-300">YouTube</a>
             </li>
             <li className="flex items-center space-x-4">
                 <img className="w-7 h-7" src={logo_inst} alt="INST" />
-                <a href="#" className="hover:text-gray-300">Instagram</a></li>
+                <a href="https://www.instagram.com/hyundaikz/" target="_blank" className="hover:text-gray-300">Instagram</a></li>
             <li className="flex items-center space-x-4">
                 <img className="w-7 h-7" src={logo_telegram} alt="telegram" />
-                <a href="#" className="hover:text-gray-300">Telegram</a></li>
+                <a href="#" target="_blank" className="hover:text-gray-300">Telegram</a></li>
           </ul>
         </div>
       </div>
