@@ -1,36 +1,87 @@
-import logo from "../assets/hyundai-img.png"
+import { useState } from "react";
+import logo from "../assets/hyundai-img.png";
+import profile from "../assets/profile.png";
 import Navigation from "./Navigation";
 
 const Header = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   return (
     <header className="bg-gray-800 text-white shadow-md">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <img
-            src={logo} alt="Hyundai Logo" className="h-10 w-auto"
-          />
+          <img src={logo} alt="Hyundai Logo" className="h-10 w-auto" />
           <span className="text-xl font-bold">Hyundai Auto Service</span>
         </div>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex space-x-6">
-          
-          <Navigation title = "Services"/>
-          <Navigation title = "Models"/>
-          <Navigation title = "Buy"/>
-          <Navigation title = "Service"/>
-          <Navigation title = "News"/>
+        {/* Navigation (Desktop) */}
+        <nav className="hidden lg:flex space-x-6">
+          <Navigation title="Services" />
+          <Navigation title="Models" />
+          <Navigation title="Buy" />
+          <Navigation title="About Us" />
+          <Navigation title="Testimonials " />
+          <Navigation title="News" />
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Profile and Language Buttons (Desktop) */}
+        <div className="hidden lg:flex items-center space-x-4">
+          <button
+            className="text-gray-300 hover:text-gray-100 border border-gray-500 px-3 py-1 rounded-lg"
+            onClick={() => alert("Language change feature coming soon!")}
+          >
+            EN / RU
+          </button>
+          <button
+            className="flex items-center space-x-2 bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-lg"
+            onClick={() => alert("Profile functionality coming soon!")}
+          >
+            <img src={profile} alt="Profile" className="h-6 w-6 rounded-full" />
+            <span className="hidden sm:inline">Profile</span>
+          </button>
+        </div>
+
+        {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-lg"
-          onClick={() => alert('Mobile menu is not implemented yet!')}
+          className="lg:hidden text-lg"
+          onClick={() => setMenuOpen(!isMenuOpen)}
         >
           ☰
         </button>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-gray-700 p-4 flex flex-col space-y-4">
+          {/* Navigation Links */}
+          <div className="flex flex-col space-y-2">
+            <Navigation title="Services" />
+            <Navigation title="Models" />
+            <Navigation title="Buy" />
+            <Navigation title="About Us" />
+            <Navigation title="Testimonials " />
+            <Navigation title="News" />
+          </div>
+
+          {/* Language Selector */}
+          <button
+            className="text-gray-300 hover:text-gray-100 border border-gray-500 px-3 py-1 rounded-lg"
+            onClick={() => alert("Language change feature coming soon!")}
+          >
+            EN / RU
+          </button>
+
+          {/* Profile Button */}
+          <button
+            className="flex items-center space-x-2 bg-gray-600 hover:bg-gray-500 px-3 py-1 rounded-lg"
+            onClick={() => alert("Profile functionality coming soon!")}
+          >
+            <img src={profile} alt="Profile" className="h-6 w-6 rounded-full" />
+            <span>Profile</span>
+          </button>
+        </div>
+      )}
     </header>
   );
 };
