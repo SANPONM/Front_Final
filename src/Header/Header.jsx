@@ -5,6 +5,8 @@ import BuyPage from "../Pages/BuyPage.jsx";
 import AboutUsPage from "../Pages/AboutUsPage.jsx";
 import TestimonialsPage from "../Pages/TestimonialsPage.jsx";
 import NewsPage from "../Pages/NewsPage.jsx";
+import AccountPage from '../Pages/AccountPage';
+import SettingsPage from '../Pages/SettingsPage';
 import { useState } from "react";
 import logo from "../assets/hyundai-img.png";
 import Navigation from "./Navigation";
@@ -84,6 +86,8 @@ const Header = () => {
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/testimonials" element={<TestimonialsPage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </Router>
   );
