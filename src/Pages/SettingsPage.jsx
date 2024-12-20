@@ -4,71 +4,89 @@ const SettingsPage = () => {
   const [settings, setSettings] = useState({
     notifications: true,
     darkMode: false,
-    privacy: "public",
+    privacy: "Public",
   });
 
-  const handleToggle = (key) => {
-    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+  const handleToggleChange = (e) => {
+    const { name, checked } = e.target;
+    setSettings((prev) => ({ ...prev, [name]: checked }));
   };
 
-  const handlePrivacyChange = (e) => {
-    setSettings((prev) => ({ ...prev, privacy: e.target.value }));
+  const handleSelectChange = (e) => {
+    const { name, value } = e.target;
+    setSettings((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSaveChanges = () => {
+    alert("Settings saved successfully!");
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-white mb-8">Settings</h1>
-      <div className="bg-white p-6 rounded-lg shadow-lg space-y-6">
-        {/* Notifications */}
-        <div className="flex justify-between items-center">
-          <span className="text-lg font-semibold text-gray-800">
-            Enable Notifications
-          </span>
-          <input
-            type="checkbox"
-            checked={settings.notifications}
-            onChange={() => handleToggle("notifications")}
-            className="w-5 h-5"
-          />
+    <div className="bg-white flex justify-center py-8">
+      <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden">
+        {/* Header */}
+        <div className="bg-blue-600 py-6 px-8 text-gray-800">
+          <h1 className="text-4xl font-bold">Settings</h1>
+          <p className="mt-2 text-gray-200">Manage your preferences and privacy settings</p>
         </div>
 
-        {/* Dark Mode */}
-        <div className="flex justify-between items-center">
-          <span className="text-lg font-semibold text-gray-800">
-            Dark Mode
-          </span>
-          <input
-            type="checkbox"
-            checked={settings.darkMode}
-            onChange={() => handleToggle("darkMode")}
-            className="w-5 h-5"
-          />
+        {/* Main Content */}
+        <div className="p-8 space-y-6">
+          {/* Notifications */}
+          <div className="flex justify-between items-center border-b border-gray-700 pb-4">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800">Notifications</h2>
+              <p className="text-gray-400 text-sm">Enable or disable notifications</p>
+            </div>
+            <input
+              type="checkbox"
+              name="notifications"
+              checked={settings.notifications}
+              onChange={handleToggleChange}
+              className="w-6 h-6 text-blue-600 focus:ring-blue-500 rounded"
+            />
+          </div>
+
+          {/* Dark Mode */}
+          <div className="flex justify-between items-center border-b border-gray-700 pb-4">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800">Dark Mode</h2>
+              <p className="text-gray-400 text-sm">Switch between light and dark themes</p>
+            </div>
+            <input
+              type="checkbox"
+              name="darkMode"
+              checked={settings.darkMode}
+              onChange={handleToggleChange}
+              className="w-6 h-6 text-blue-600 focus:ring-blue-500 rounded"
+            />
+          </div>
+
+          {/* Privacy */}
+          <div className="border-b border-gray-700 pb-4">
+            <h2 className="text-lg font-semibold text-gray-800">Privacy</h2>
+            <p className="text-gray-400 text-sm mb-2">Control who can see your profile</p>
+            <select
+              name="privacy"
+              value={settings.privacy}
+              onChange={handleSelectChange}
+              className="w-full p-2 bg-white border border-gray-700   text-gray-800 rounded-lg focus:ring focus:ring-blue-500"
+            >
+              <option value="Public">Public</option>
+              <option value="Private">Private</option>
+            </select>
+          </div>
+
+          {/* Save Button */}
+          <div className="text-right">
+            <button
+              onClick={handleSaveChanges}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow"
+            >
+              Save Changes
+            </button>
+          </div>
         </div>
-
-        {/* Privacy Settings */}
-        <div>
-          <label className="text-lg font-semibold text-gray-800 block mb-2">
-            Privacy
-          </label>
-          <select
-            value={settings.privacy}
-            onChange={handlePrivacyChange}
-            className="w-full p-2 border rounded-lg bg-white text-gray-800"
-          >
-            <option value="public">Public</option>
-            <option value="private">Private</option>
-            <option value="friends">Friends Only</option>
-          </select>
-        </div>
-
-
-        {/* Save Button */}
-        <button
-          className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg"
-          onClick={() => alert("Settings saved!")}
-        >
-          Save Changes
-        </button>
       </div>
     </div>
   );
