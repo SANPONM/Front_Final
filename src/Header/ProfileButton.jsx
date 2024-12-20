@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import profile from "../assets/profile.png"; // Путь к картинке профиля
 import logo from "../assets/hyundai-img.png"; // Логотип Hyundai
+import { FaTimes } from "react-icons/fa"; // Иконка закрытия (крестик)
 
-const ProfileButton = () => {
+const ProfileButton = ({ onLoginStatusChange }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false); // Переключение между Sign In и Sign Up
@@ -24,6 +25,7 @@ const ProfileButton = () => {
     if ((username || useradress) && password) {
       setIsLoggedIn(true);
       setModalOpen(false); // Закрытие модального окна
+      onLoginStatusChange(true);
     } else {
       alert("Please enter valid credentials.");
     }
@@ -42,6 +44,7 @@ const ProfileButton = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false); // Устанавливаем статус выхода
+    onLoginStatusChange(false);
   };
 
   const handleForgotPassword = () => {
@@ -105,7 +108,18 @@ const ProfileButton = () => {
       {/* Модальное окно для Sign In / Sign Up / Forgot Password */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-30 bg-black bg-opacity-50">
-          <div className="bg-gray-800 p-6 rounded-lg w-96">
+          <div className="bg-gray-800 p-6 rounded-lg w-96 relative">
+            {/* Кнопка закрытия модального окна */}
+            <button
+              className="w-8 h-8 bg-gray-700 text-white absolute top-2 right-2"
+              onClick={() => {
+                setModalOpen(false); // Закрытие модального окна
+                setForgotPasswordStage(0); // Сбросить состояние восстановления пароля при закрытии
+              }}
+            >
+              <FaTimes className="text-white absolute left-3 bottom-1.5" />
+            </button>
+
             {/* 1-й контейнер: Логотип */}
             <div className="flex justify-center mb-4">
               <img src={logo} alt="Hyundai Logo" className="h-16 w-auto" />

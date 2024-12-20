@@ -68,12 +68,12 @@ const AboutUsPage = () => {
 
         {/* Контактная информация */}
         <div className="mt-12 text-center">
-          <h3 className="text-2xl font-semibold mb-4">Свяжитесь с нами</h3>
+          <h3 className="text-2xl font-semibold mb-4">Contact Us</h3>
           <p className="text-gray-700">
-            Адрес: ул. Примерная, 123, г. Вашингтон, США
+          Address: 456 Example Street, Suite 789, Washington, USA
           </p>
-          <p className="text-gray-700">Телефон: +1 (123) 456-7890</p>
-          <p className="text-gray-700">Электронная почта: info@hyundai.com</p>
+          <p className="text-gray-700">Phone: +1 (234) 567-8901</p>
+          <p className="text-gray-700">Email: service@hyundai.com</p>
         </div>
       </div>
     </div>
