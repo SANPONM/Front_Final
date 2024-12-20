@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import ServicesPage from "../Pages/ServicePage.jsx";
 import ModelsPage from "../Pages/ModelsPage.jsx";
-import BuyPage from "../Pages/BuyPage.jsx";
 import AboutUsPage from "../Pages/AboutUsPage.jsx";
 import NewsPage from "../Pages/NewsPage.jsx";
 import AccountPage from '../Pages/AccountPage';
@@ -10,6 +9,8 @@ import { useState } from "react";
 import logo from "../assets/hyundai-img.png";
 import Navigation from "./Navigation";
 import ProfileButton from "./ProfileButton";
+import HomePage from "../Pages/HomePages.jsx";
+
 const Header = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -18,16 +19,17 @@ const Header = () => {
       <header className="bg-gray-800 text-white shadow-md">
         <div className="container mx-auto flex justify-between items-center p-4">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <img src={logo} alt="Hyundai Logo" className="h-10 w-auto" />
-            <span className="text-xl font-bold">Hyundai Auto Service</span>
-          </div>
+          <Link to="/">
+            <div className="flex items-center space-x-2">
+              <img src={logo} alt="Hyundai Logo" className="h-10 w-auto" />
+              <span className="text-xl font-bold">Hyundai</span>
+            </div>
+          </Link>
 
           {/* Navigation (Desktop) */}
           <nav className="hidden lg:flex space-x-6">
             <Navigation title="Services" link="/services" />
             <Navigation title="Models" link="/models" />
-            <Navigation title="Buy" link="/buy" />
             <Navigation title="About Us" link="/about-us" />
             <Navigation title="News" link="/news" />
           </nav>
@@ -58,7 +60,6 @@ const Header = () => {
             <div className="flex flex-col space-y-2">
               <Navigation title="Services" link="/services" />
               <Navigation title="Models" link="/models" />
-              <Navigation title="Buy" link="/buy" />
               <Navigation title="About Us" link="/about-us" />
               <Navigation title="News" link="/news" />
             </div>
@@ -77,9 +78,9 @@ const Header = () => {
 
       {/* Routing logic */}
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/models" element={<ModelsPage />} />
-        <Route path="/buy" element={<BuyPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/account" element={<AccountPage />} />
