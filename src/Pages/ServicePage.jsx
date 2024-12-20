@@ -4,7 +4,13 @@ import reviewMan from "../assets/man.png";
 import reviewWoman from "../assets/girl.png";
 import reviewBoy from "../assets/boy.png";
 
+import { useEffect } from "react";
+
 const ServicePage = () => {
+  useEffect(() => {
+    // Прокрутка страницы в начало при монтировании компонента
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="bg-gray-100 text-gray-800 min-h-screen">
       <div className="container mx-auto px-6 lg:px-12 py-12">

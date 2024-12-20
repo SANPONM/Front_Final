@@ -8,8 +8,13 @@ import elantraN from "../assets/elantra-n.png";
 import creta from "../assets/creta.png";
 import palisade from "../assets/palisade.png";
 import santaFe from "../assets/santaFe.png";
+import { useEffect } from "react";
 
 const ModelsPage = () => {
+  useEffect(() => {
+    // Прокрутка страницы в начало при монтировании компонента
+    window.scrollTo(0, 0);
+  }, []);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState("");
   const [formData, setFormData] = useState({
@@ -118,7 +123,7 @@ const ModelsPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-white mb-8">Buy a Hyundai</h1>
+      <h1 className="text-4xl font-bold text-white mb-8 mt-16">Buy a Hyundai</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {cars.map((car) => (
           <div

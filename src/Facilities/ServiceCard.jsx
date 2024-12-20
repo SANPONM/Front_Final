@@ -12,7 +12,7 @@ function ServiceCard({ imageSrc, title, description, link }) {
       <p className="text-gray-600">{description}</p>
       <Link
         to={link}
-        className="inline-block px-6 py-3 mt-4 text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700"
+        className="inline-block px-6 py-3 mt-4 bg-black text-white rounded-lg hover:bg-gray-800 hover:text-gray-200 transition-colors"
       >
         Details
       </Link>

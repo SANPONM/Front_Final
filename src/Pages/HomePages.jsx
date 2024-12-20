@@ -1,6 +1,14 @@
 import React, { useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ServiceCard from '../Facilities/ServiceCard.jsx';
+import LearnMoreButton from '../Facilities/LearnMoreButton';
+import elentra from "../assets/hyundai-elentra.jpg";
+import staria from "../assets/hyundai-staria.png";
+import inRoad from "../assets/hyundaiRoad.jpeg";
+import closeCar from "../assets/hyundaiPlan.jpeg";
+import tOCar from "../assets/toHyundai.webp";
+import repairCar from "../assets/repairHyundai.jpeg";
+import sparesCar from "../assets/spares.jpg";
 function HomePage() {
   const slides = [
     { url: "https://i.ytimg.com/vi/79lSVBwWWkI/maxresdefault.jpg" },
@@ -23,57 +31,57 @@ function HomePage() {
     1: [
       {
         id: 1,
-        title: "Toyota Camry",
+        title: "Hyundai Elantra",
         description: "Reliable. Stylish. Efficient.",
-        price: "$27,000",
+        price: "10,500,000₸",
         mpg: "32/41 MPG",
-        image: "https://i.ytimg.com/vi/79lSVBwWWkI/maxresdefault.jpg",
+        image: elentra,
       },
       {
         id: 2,
-        title: "Toyota Avalon",
+        title: "STARIA",
         description: "Luxury. Comfort. Performance.",
-        price: "$36,000",
+        price: "10,500,000₸",
         mpg: "26/35 MPG",
-        image: "https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg",
+        image: staria,
       },
     ],
     2: [
       {
         id: 1,
-        title: "Toyota Tundra",
-        description: "Built to tackle any terrain.",
-        price: "$39,000",
-        mpg: "18/24 MPG",
-        image: "https://images3.alphacoders.com/138/1385776.jpg",
+        title: "Hyundai Elantra",
+        description: "Reliable. Stylish. Efficient.",
+        price: "10,500,000₸",
+        mpg: "32/41 MPG",
+        image: elentra,
       },
     ],
     3: [
       {
         id: 1,
-        title: "Toyota Highlander",
-        description: "Bold. Sophisticated. Versatile.",
-        price: "$39,520",
-        mpg: "22/29 MPG",
-        image: "https://i.ytimg.com/vi/b9nVe3yKlg4/maxresdefault.jpg",
+        title: "Hyundai Elantra",
+        description: "Reliable. Stylish. Efficient.",
+        price: "10,500,000₸",
+        mpg: "32/41 MPG",
+        image: elentra,
       },
       {
         id: 2,
-        title: "Toyota RAV4",
-        description: "Adventure-ready SUV.",
-        price: "$28,000",
-        mpg: "27/35 MPG",
-        image: "https://avatars.mds.yandex.net/i?id=bfe3f4bbe7b0ece26d904131f4286a1b_l-9840106-images-thumbs&n=13",
+        title: "STARIA",
+        description: "Luxury. Comfort. Performance.",
+        price: "10,500,000₸",
+        mpg: "26/35 MPG",
+        image: staria,
       },
     ],
     4: [
       {
         id: 1,
-        title: "Toyota bZ4X",
-        description: "Efficient. Futuristic. Electric.",
-        price: "$45,000",
-        mpg: "222-Mile Range",
-        image: "https://i.ytimg.com/vi/b9nVe3yKlg4/maxresdefault.jpg",
+        title: "Hyundai Elantra",
+        description: "Reliable. Stylish. Efficient.",
+        price: "10,500,000₸",
+        mpg: "32/41 MPG",
+        image: elentra,
       },
     ],
   };
@@ -121,7 +129,7 @@ function HomePage() {
       <img
         src={car?.image}
         alt={car?.title}
-        className="w-full h-40 object-cover rounded-lg mb-4"
+        className="w-full h-50 object-cover rounded-lg mb-4"
       />
       <h3 className="text-gray-800 text-xl font-bold mb-2">{car?.title}</h3>
       <p className="text-gray-600 mb-4">{car?.description}</p>
@@ -154,7 +162,7 @@ function HomePage() {
   return (
       <div className="w-full">
         <div 
-          className="relative h-screen bg-gray-200"
+          className="relative h-screen bg-gray-200 "
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
         >
@@ -194,7 +202,7 @@ function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="relative group">
                 <img
-                  src="https://i.ytimg.com/vi/b9nVe3yKlg4/maxresdefault.jpg"
+                  src= {closeCar}
                   alt="Featured vehicle"
                   className="w-full h-[500px] rounded-xl shadow-xl object-cover transition-transform duration-300 group-hover:scale-105"
                 />
@@ -204,7 +212,7 @@ function HomePage() {
               <div className="space-y-8">
                 <div className="relative group">
                   <img
-                    src="https://i.ytimg.com/vi/b9nVe3yKlg4/maxresdefault.jpg"
+                    src= {inRoad}
                     alt="Secondary vehicle"
                     className="w-full h-[300px] rounded-xl shadow-xl object-cover transition-transform duration-300 group-hover:scale-105"
                   />
@@ -218,9 +226,7 @@ function HomePage() {
                     unprecedented performance capabilities.
                   </p>
                   <div className="flex flex-wrap gap-4">
-                    <button className="bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-colors">
-                      Learn More
-                    </button>
+                    <LearnMoreButton /> 
                     <button className="bg-white text-black border-2 border-black py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
                       Schedule Test Drive
                     </button>
@@ -316,27 +322,27 @@ function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <ServiceCard
-                imageSrc="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
+                imageSrc= {tOCar}
                 title="Maintenance"
                 description="Professional care of your car."
-                link="/services/maintenance"
+                link= "/services"
               />
               <ServiceCard
-                imageSrc="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
+                imageSrc= {repairCar}
                 title="Repair"
                 description="Reliable repairs with quality assurance."
-                link="/services/repair"
+                link="/services"
               />
               <ServiceCard
-                imageSrc="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
+                imageSrc= {sparesCar}
                 title="Spares"
                 description="Original spare parts for a long service life."
-                link="/services/parts"
+                link="/services"
               />
             </div>
           </div>
         </section>
-
+      
       </div>
   );
 }

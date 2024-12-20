@@ -6,7 +6,7 @@ const AboutUsPage = () => {
     <div className="bg-gray-100 text-gray-800 min-h-screen">
       <div className="container mx-auto px-6 lg:px-12 py-12">
         {/* Заголовок страницы */}
-        <h1 className="text-3xl md:text-5xl font-bold text-center text-gray-900 mb-8 mt-12">
+        <h1 className="text-3xl md:text-5xl font-bold text-center text-gray-900 mb-8 mt-20">
           From pioneering automaker in Korea to global auto industry leader
         </h1>
 
