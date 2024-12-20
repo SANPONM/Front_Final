@@ -22,7 +22,7 @@ const Header = () => {
           <Link to="/">
             <div className="flex items-center space-x-2">
               <img src={logo} alt="Hyundai Logo" className="h-10 w-auto" />
-              <span className="text-xl font-bold">Hyundai</span>
+              <span className="text-xl font-bold hover:cursor-pointer">Hyundai</span>
             </div>
           </Link>
 
