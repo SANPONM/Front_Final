@@ -1,7 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import AboutUsPage from "../Pages/AboutUsPage.jsx";
+import ServiceCard from '../Facilities/ServiceCard.jsx';
 function HomePage() {
   const slides = [
     { url: "https://i.ytimg.com/vi/79lSVBwWWkI/maxresdefault.jpg" },
@@ -309,65 +308,31 @@ function HomePage() {
         <section className="py-16 bg-gray-100 border-t-2">
           <div className="container mx-auto px-4 max-w-7xl">
             <div className="text-center mb-12">
-              <h2 className="text-4xl text-gray-800 font-bold mb-4">Наш сервис</h2>
+              <h2 className="text-4xl text-gray-800 font-bold mb-4">Our Service</h2>
               <p className="text-gray-700 text-lg max-w-2xl mx-auto">
-                Мы предоставляем высококачественные услуги, чтобы обеспечить вам
-                максимальное удовольствие от владения автомобилем.
+                We provide high-quality services to provide you with
+                Maximum enjoyment of owning a car.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <img
-                  src="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
-                  alt="Service 1"
-                  className="w-full h-[200px] object-cover rounded-lg mb-4"
-                />
-                <h3 className="text-xl font-bold text-gray-800">Обслуживание</h3>
-                <p className="text-gray-600">
-                  Профессиональный уход за вашим автомобилем.
-                </p>
-                <a
-                  href="/services/maintenance"
-                  className="inline-block px-6 py-3 mt-4 text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700"
-                >
-                  Подробнее
-                </a>
-              </div>
-              <div className="text-center">
-                <img
-                  src="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
-                  alt="Service 2"
-                  className="w-full h-[200px] object-cover rounded-lg mb-4"
-                />
-                <h3 className="text-xl font-bold text-gray-800">Ремонт</h3>
-                <p className="text-gray-600">
-                  Надежные ремонтные работы с гарантией качества.
-                </p>
-                <a
-                  href="/services/repair"
-                  className="inline-block px-6 py-3 mt-4 text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700"
-                >
-                  Подробнее
-                </a>
-              </div>
-              <div className="text-center">
-                <img
-                  src="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
-                  alt="Service 3"
-                  className="w-full h-[200px] object-cover rounded-lg mb-4"
-                />
-                <h3 className="text-xl font-bold text-gray-800">Запчасти</h3>
-                <p className="text-gray-600">
-                  Оригинальные запчасти для долгого срока службы.
-                </p>
-                <a
-                  href="/services/parts"
-                  className="inline-block px-6 py-3 mt-4 text-white bg-blue-600 rounded-lg shadow-lg hover:bg-blue-700"
-                >
-                  Подробнее
-                </a>
-
-              </div>
+              <ServiceCard
+                imageSrc="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
+                title="Maintenance"
+                description="Professional care of your car."
+                link="/services/maintenance"
+              />
+              <ServiceCard
+                imageSrc="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
+                title="Repair"
+                description="Reliable repairs with quality assurance."
+                link="/services/repair"
+              />
+              <ServiceCard
+                imageSrc="https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg"
+                title="Spares"
+                description="Original spare parts for a long service life."
+                link="/services/parts"
+              />
             </div>
           </div>
         </section>
