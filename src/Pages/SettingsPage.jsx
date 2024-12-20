@@ -23,7 +23,7 @@ const SettingsPage = () => {
 
   return (
     <div className="bg-white flex justify-center py-8">
-      <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden mt-16">
         {/* Header */}
         <div className="bg-blue-600 py-6 px-8 text-gray-800">
           <h1 className="text-4xl font-bold">Settings</h1>

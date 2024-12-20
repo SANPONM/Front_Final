@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <Router>
-      <header className="bg-gray-800 text-white shadow-md">
+      <header className="bg-gray-800 text-white shadow-md fixed w-full z-50">
         <div className="container mx-auto flex justify-between items-center p-4">
           {/* Logo */}
           <Link to="/">

@@ -35,7 +35,7 @@ const AccountPage = () => {
 
   return (
     <div className="flex justify-center py-12 bg-gray-100 min-h-screen">
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden mt-16">
         {/* Header Section */}
         <div className="bg-blue-600 py-8 px-6 text-white flex flex-col items-center">
           <img
