@@ -90,7 +90,10 @@ const ProfileButton = ({ onLoginStatusChange }) => {
 
       {/* Меню профиля */}
       {isMenuOpen && isLoggedIn && (
-        <div className="absolute right-0 mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20">
+        <div
+          className="absolute right-0 mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20"
+          onMouseLeave={() => setMenuOpen(false)} // Закрыть меню, если курсор ушел
+        >
           <ul className="text-white">
             <li className="hover:bg-gray-600 rounded-lg px-4 py-2" onClick={() => navigate("/account")}>
               My Account
@@ -104,6 +107,7 @@ const ProfileButton = ({ onLoginStatusChange }) => {
           </ul>
         </div>
       )}
+
 
       {/* Модальное окно для Sign In / Sign Up / Forgot Password */}
       {isModalOpen && (
