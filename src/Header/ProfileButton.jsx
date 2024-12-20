@@ -21,7 +21,7 @@ const ProfileButton = ({ onLoginStatusChange }) => {
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
       const response = await fetch('http://localhost:5000/api/login', {
           method: 'POST',
@@ -120,7 +120,6 @@ const ProfileButton = ({ onLoginStatusChange }) => {
         </div>
       )}
 
-
       {/* Модальное окно для Sign In / Sign Up / Forgot Password */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-30 bg-black bg-opacity-50">
@@ -151,6 +150,31 @@ const ProfileButton = ({ onLoginStatusChange }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
+                {isSignUp && (
+                  <>
+                    <input
+                      type="email"
+                      className="w-full p-2 rounded-lg border bg-gray-700 text-white"
+                      placeholder="Email Address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                      type="password"
+                      className="w-full p-2 rounded-lg border bg-gray-700 text-white"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <input
+                      type="password"
+                      className="w-full p-2 rounded-lg border bg-gray-700 text-white"
+                      placeholder="Confirm Password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </>
+                )}
                 {!isSignUp && (
                   <input
                     type="password"
@@ -158,24 +182,6 @@ const ProfileButton = ({ onLoginStatusChange }) => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                  />
-                )}
-                {isSignUp && (
-                  <input
-                    type="email"
-                    className="w-full p-2 rounded-lg border bg-gray-700 text-white"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                )}
-                {isSignUp && (
-                  <input
-                    type="password"
-                    className="w-full p-2 rounded-lg border bg-gray-700 text-white"
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 )}
                 <button
@@ -272,5 +278,5 @@ const ProfileButton = ({ onLoginStatusChange }) => {
     </div>
   );
 };
-  
+
 export default ProfileButton;
