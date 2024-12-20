@@ -3,7 +3,6 @@ import ServicesPage from "../Pages/ServicePage.jsx";
 import ModelsPage from "../Pages/ModelsPage.jsx";
 import BuyPage from "../Pages/BuyPage.jsx";
 import AboutUsPage from "../Pages/AboutUsPage.jsx";
-import TestimonialsPage from "../Pages/TestimonialsPage.jsx";
 import NewsPage from "../Pages/NewsPage.jsx";
 import AccountPage from '../Pages/AccountPage';
 import SettingsPage from '../Pages/SettingsPage';
@@ -30,7 +29,6 @@ const Header = () => {
             <Navigation title="Models" link="/models" />
             <Navigation title="Buy" link="/buy" />
             <Navigation title="About Us" link="/about-us" />
-            <Navigation title="Testimonials" link="/testimonials" />
             <Navigation title="News" link="/news" />
           </nav>
 
@@ -62,7 +60,6 @@ const Header = () => {
               <Navigation title="Models" link="/models" />
               <Navigation title="Buy" link="/buy" />
               <Navigation title="About Us" link="/about-us" />
-              <Navigation title="Testimonials" link="/testimonials" />
               <Navigation title="News" link="/news" />
             </div>
 
@@ -84,7 +81,6 @@ const Header = () => {
         <Route path="/models" element={<ModelsPage />} />
         <Route path="/buy" element={<BuyPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
-        <Route path="/testimonials" element={<TestimonialsPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/settings" element={<SettingsPage />} />
