@@ -36,7 +36,7 @@ const NewsPage = () => {
       ];
       setNews(fetchedNews);
       setLoading(false);
-    }, 1000); // Задержка для имитации загрузки данных
+    }, 0); // Задержка для имитации загрузки данных
   }, []);
 
   if (loading) {
