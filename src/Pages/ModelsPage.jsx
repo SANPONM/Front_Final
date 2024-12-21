@@ -144,7 +144,7 @@ const ModelsPage = () => {
                 onClick={() => openModal("book")}
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg"
               >
-                Book
+                Buy
               </button>
               <button
                 onClick={() => openModal("testDrive")}
@@ -161,7 +161,7 @@ const ModelsPage = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8 w-96">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
-              {modalType === "book" ? "Book a Car" : "Test Drive"}
+              {modalType === "book" ? "Buy Menu" : "Test Drive"}
             </h2>
             <div className="space-y-4">
             <div>
