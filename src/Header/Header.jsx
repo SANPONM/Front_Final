@@ -11,10 +11,10 @@ const Header = () => {
     <header className="bg-gray-800 text-white shadow-md fixed w-full z-50">
       <div className="container mx-auto flex justify-between items-center p-4">
         {/* Logo */}
-        <Link to="/">
+        <Link to="/" className="relative text-lg focus:text-white hover:text-white transition-colors ">
           <div className="flex items-center space-x-2">
             <img src={logo} alt="Hyundai Logo" className="h-10 w-auto" />
-            <span className="text-xl font-bold hover:cursor-pointer">Hyundai</span>
+            <span className="text-xl font-bold">Hyundai</span>
           </div>
         </Link>
 
@@ -28,18 +28,13 @@ const Header = () => {
 
         {/* Profile and Language Buttons (Desktop) */}
         <div className="hidden lg:flex items-center space-x-4">
-          <button
-            className="text-gray-300 hover:text-gray-100 border border-gray-500 px-3 py-1 rounded-lg transition duration-300"
-            onClick={() => alert("Language change feature coming soon!")}
-          >
-            EN / RU
-          </button>
+          
           <ProfileButton />
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden text-lg"
+          className="lg:hidden text-lg bg-blue-900"
           onClick={() => setMenuOpen(!isMenuOpen)}
         >
           ☰
@@ -55,14 +50,6 @@ const Header = () => {
             <Navigation title="About Us" link="/about-us" />
             <Navigation title="News" link="/news" />
           </div>
-
-          <button
-            className="text-gray-300 hover:text-gray-100 border border-gray-500 px-3 py-1 rounded-lg transition duration-300"
-            onClick={() => alert("Language change feature coming soon!")}
-          >
-            EN / RU
-          </button>
-
           <ProfileButton />
         </div>
       )}

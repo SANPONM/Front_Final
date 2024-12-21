@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ServiceCard from '../Facilities/ServiceCard.jsx';
 import LearnMoreButton from '../Facilities/LearnMoreButton';
+import ScheduleTestDrive from "../Facilities/SheduleTestDrive.jsx";
+import Explore from "../Facilities/Explore.jsx";
 import elentra from "../assets/hyundai-elentra.jpg";
 import staria from "../assets/hyundai-staria.png";
 import inRoad from "../assets/hyundaiRoad.jpeg";
@@ -9,14 +11,15 @@ import closeCar from "../assets/hyundaiPlan.jpeg";
 import tOCar from "../assets/toHyundai.webp";
 import repairCar from "../assets/repairHyundai.jpeg";
 import sparesCar from "../assets/spares.jpg";
+
 function HomePage() {
   const slides = [
-    { url: "https://i.ytimg.com/vi/79lSVBwWWkI/maxresdefault.jpg" },
-    { url: "https://img.youtube.com/vi/Xn6gHHD79hU/maxresdefault.jpg" },
-    { url: "https://images3.alphacoders.com/138/1385776.jpg" },
-    { url: "https://i.ytimg.com/vi/b9nVe3yKlg4/maxresdefault.jpg" },
+    { url: "https://avatars.mds.yandex.net/get-verba/997355/2a0000018ae09b7f58f2dbccae6a1db05ceb/1200x900" },
+    { url: "https://avatars.mds.yandex.net/get-verba/1030388/2a0000018cfcb8a8b1800155cf6ee0090a46/1200x900" },
+    { url: "https://avatars.mds.yandex.net/get-verba/3587101/2a00000182279061e5a31f4828e1bba676b7/1200x900" },
+    { url: "https://avatars.mds.yandex.net/get-verba/997355/2a0000018b2416193ae083642877afeb116d/1200x900" },
     {
-      url: "https://avatars.mds.yandex.net/i?id=bfe3f4bbe7b0ece26d904131f4286a1b_l-9840106-images-thumbs&n=13"
+      url: "https://avatars.mds.yandex.net/get-verba/1604130/2a0000017ff613dbe2112f7badbaed8e8fa7/1200x900"
     },
   ];
 
@@ -86,15 +89,27 @@ function HomePage() {
     ],
   };
 
-  const CARDS_TO_SHOW = 3;
-  const CARDS_TO_SCROLL = 2;
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState(3);
   const [isHovering, setIsHovering] = useState(false);
   const [slideIndex, setSlideIndex] = useState(0);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
   const cars = carData[selectedCategory] || [];
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  
+  const CARDS_TO_SHOW = isMobile ? 1 : 3;
+  const CARDS_TO_SCROLL = isMobile ? 1 : 2;
   
   const visibleCards = useMemo(() => {
     const result = [];
@@ -125,24 +140,19 @@ function HomePage() {
   };
 
   const CarCard = ({ car }) => (
-    <div className="flex-shrink-0 w-full md:w-[calc(100%/3-1rem)] bg-white rounded-lg shadow-lg p-4 transition-transform duration-300 hover:scale-105">
+    <div className="flex-shrink-0 w-full sm:w-[calc(100%-1rem)] md:w-[calc(100%/3-1rem)] bg-white rounded-lg shadow-lg p-4 transition-transform duration-300 hover:scale-105">
       <img
         src={car?.image}
         alt={car?.title}
-        className="w-full h-50 object-cover rounded-lg mb-4"
+        className="w-full h-48 sm:h-56 md:h-50 object-cover rounded-lg mb-4"
       />
-      <h3 className="text-gray-800 text-xl font-bold mb-2">{car?.title}</h3>
-      <p className="text-gray-600 mb-4">{car?.description}</p>
-      <p className="text-gray-800 text-lg font-semibold mb-4">
+      <h3 className="text-gray-800 text-lg sm:text-xl font-bold mb-2">{car?.title}</h3>
+      <p className="text-gray-600 text-sm sm:text-base mb-4">{car?.description}</p>
+      <p className="text-gray-800 text-base sm:text-lg font-semibold mb-4">
         {car?.price} | {car?.mpg}
       </p>
-      <div className="flex gap-3">
-        <button className="flex-1 bg-black text-white py-2 rounded hover:bg-gray-800 transition">
-          Explore
-        </button>
-        <button className="flex-1 bg-gray-400 py-2 rounded hover:bg-gray-300 transition">
-          Build
-        </button>
+      <div className="flex gap-2 sm:gap-3">
+         <Explore />
       </div>
     </div>
   );
@@ -161,34 +171,34 @@ function HomePage() {
 
   return (
       <div className="w-full">
-        <div 
-          className="relative h-screen bg-gray-200 "
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
-          <div
-            style={{ backgroundImage: `url(${slides[slideIndex].url})` }}
-            className="w-full h-full bg-center bg-cover duration-500"
-          />
-          
-          <NavigationButton direction="left" onClick={() => handleSlideChange('prev')} />
-          <NavigationButton direction="right" onClick={() => handleSlideChange('next')} />
-
-          <div className={`absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 transition-opacity duration-300 ${
-            isHovering ? 'opacity-100' : 'opacity-0'
-          }`}>
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setSlideIndex(index)}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  slideIndex === index ? 'bg-white' : 'bg-white/50'
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+         <div 
+        className="relative h-[50vh] sm:h-[70vh] md:h-screen bg-gray-200"
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        <div
+          style={{ backgroundImage: `url(${slides[slideIndex].url})` }}
+          className="w-full h-full bg-center bg-cover duration-500"
+        />
+        
+        {/* Navigation buttons visible on hover and always on mobile */}
+        <div className={`absolute inset-0 flex items-center justify-between p-4 ${
+          isMobile ? 'opacity-100' : (isHovering ? 'opacity-100' : 'opacity-0')
+        } transition-opacity duration-300`}>
+          <button
+            onClick={() => handleSlideChange('prev')}
+            className="bg-black/20 hover:bg-black/30 text-white p-2 rounded-full"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={() => handleSlideChange('next')}
+            className="bg-black/20 hover:bg-black/30 text-white p-2 rounded-full"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
+      </div>
 
         <section className="bg-gray-100 py-24">
           <div className="container mx-auto px-4 max-w-7xl">
@@ -206,7 +216,7 @@ function HomePage() {
                   alt="Featured vehicle"
                   className="w-full h-[500px] rounded-xl shadow-xl object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"/>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl scale-100 group-hover:scale-105"/>
               </div>
 
               <div className="space-y-8">
@@ -216,7 +226,7 @@ function HomePage() {
                     alt="Secondary vehicle"
                     className="w-full h-[300px] rounded-xl shadow-xl object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"/>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl scale-100 group-hover:scale-105"/>
                 </div>
                 
                 <div className="space-y-6 px-4">
@@ -227,9 +237,7 @@ function HomePage() {
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <LearnMoreButton /> 
-                    <button className="bg-white text-black border-2 border-black py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
-                      Schedule Test Drive
-                    </button>
+                    <ScheduleTestDrive />
                   </div>
                 </div>
               </div>
@@ -237,111 +245,96 @@ function HomePage() {
           </div>
         </section>
 
-        <section className="py-16 bg-gray-50 border-t-2">
-          <div className="container mx-auto px-4">
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              {categories.map((category) => (
+        <section className="py-12 sm:py-16 bg-gray-50 border-t-2">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  setCurrentIndex(0);
+                }}
+                className={`px-4 sm:px-6 py-2 rounded-full text-sm sm:text-base transition-colors ${
+                  selectedCategory === category.id
+                    ? "bg-black text-white"
+                    : "bg-gray-400 hover:bg-gray-300"
+                }`}
+              >
+                {category.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Car Cards Carousel */}
+          <div className="relative px-4 sm:px-8">
+            <div className="overflow-hidden">
+              <div 
+                className="flex gap-4 transition-transform duration-500"
+                style={{ transform: `translateX(-${(currentIndex * 100) / CARDS_TO_SHOW}%)` }}
+              >
+                {cars.map((car, index) => (
+                  <CarCard key={`${car.id}-${index}`} car={car} />
+                ))}
+              </div>
+            </div>
+
+            {/* Carousel Navigation */}
+            {cars.length > CARDS_TO_SHOW && (
+              <div className="flex justify-between mt-4">
                 <button
-                  key={category.id}
-                  onClick={() => {
-                    setSelectedCategory(category.id);
-                    setCurrentIndex(0);
-                  }}
-                  className={`px-6 py-2 rounded-full transition-colors ${
-                    selectedCategory === category.id
-                      ? "bg-black text-white"
-                      : "bg-gray-400 hover:bg-gray-300"
+                  onClick={() => handleCarChange('prev')}
+                  className={`bg-black/20 hover:bg-black/30 text-white p-2 rounded-full ${
+                    currentIndex === 0 ? 'invisible' : ''
                   }`}
                 >
-                  {category.name}
+                  <ChevronLeft size={20} />
                 </button>
-              ))}
-            </div>
-
-            <div 
-              className="relative"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-            >
-              <div className="relative overflow-hidden">
-                <div className="flex gap-4 transition-transform duration-500" 
-                    style={{ transform: `translateX(-${(currentIndex * 100) / CARDS_TO_SHOW}%)` }}>
-                  {cars.map((car, index) => (
-                    <CarCard key={`${car.id}-${index}`} car={car} />
-                  ))}
-                </div>
-              </div>
-
-              {cars.length > CARDS_TO_SHOW && (
-                <>
-                  <button
-                    onClick={() => handleCarChange('prev')}
-                    className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-black/20 hover:bg-black/30 text-white p-3 rounded-full transition-all duration-300 ${
-                      isHovering ? 'opacity-100' : 'opacity-0'
-                    } ${currentIndex === 0 ? 'invisible' : ''}`}
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={() => handleCarChange('next')}
-                    className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-black/20 hover:bg-black/30 text-white p-3 rounded-full transition-all duration-300 ${
-                      isHovering ? 'opacity-100' : 'opacity-0'
-                    } ${currentIndex >= cars.length - CARDS_TO_SHOW ? 'invisible' : ''}`}
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-                </>
-              )}
-            </div>
-
-            <div className="flex justify-center mt-8 gap-2">
-              {Array.from({ length: Math.ceil(cars.length / CARDS_TO_SCROLL) }).map((_, index) => (
                 <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index * CARDS_TO_SCROLL)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    Math.floor(currentIndex / CARDS_TO_SCROLL) === index
-                      ? 'bg-black'
-                      : 'bg-gray-300'
+                  onClick={() => handleCarChange('next')}
+                  className={`bg-black/20 hover:bg-black/30 text-white p-2 rounded-full ${
+                    currentIndex >= cars.length - CARDS_TO_SHOW ? 'invisible' : ''
                   }`}
-                  aria-label={`Go to slide group ${index + 1}`}
-                />
-              ))}
-            </div>
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            )}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="py-16 bg-gray-100 border-t-2">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl text-gray-800 font-bold mb-4">Our Service</h2>
-              <p className="text-gray-700 text-lg max-w-2xl mx-auto">
-                We provide high-quality services to provide you with
-                Maximum enjoyment of owning a car.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <ServiceCard
-                imageSrc= {tOCar}
-                title="Maintenance"
-                description="Professional care of your car."
-                link= "/services"
-              />
-              <ServiceCard
-                imageSrc= {repairCar}
-                title="Repair"
-                description="Reliable repairs with quality assurance."
-                link="/services"
-              />
-              <ServiceCard
-                imageSrc= {sparesCar}
-                title="Spares"
-                description="Original spare parts for a long service life."
-                link="/services"
-              />
-            </div>
+      <section className="py-12 sm:py-16 bg-gray-100 border-t-2">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-3xl sm:text-4xl text-gray-800 font-bold mb-3 sm:mb-4">Our Service</h2>
+            <p className="text-gray-700 text-base sm:text-lg max-w-2xl mx-auto">
+              We provide high-quality services to provide you with
+              Maximum enjoyment of owning a car.
+            </p>
           </div>
-        </section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+            <ServiceCard
+              imageSrc={tOCar}
+              title="Maintenance"
+              description="Professional care of your car."
+              link="/services"
+            />
+            <ServiceCard
+              imageSrc={repairCar}
+              title="Repair"
+              description="Reliable repairs with quality assurance."
+              link="/services"
+            />
+            <ServiceCard
+              imageSrc={sparesCar}
+              title="Spares"
+              description="Original spare parts for a long service life."
+              link="/services"
+            />
+          </div>
+        </div>
+      </section>
       
       </div>
   );

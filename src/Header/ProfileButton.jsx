@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import profile from "../assets/profile.png";
 import logo from "../assets/hyundai-img.png";
 import { FaTimes } from "react-icons/fa";
+import AccountPage from "../Pages/AccountPage";
 
 const ProfileButton = ({ onLoginStatusChange }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
@@ -40,12 +41,11 @@ const ProfileButton = ({ onLoginStatusChange }) => {
       setIsLoggedIn(true);
       setModalOpen(false);
       onLoginStatusChange(true);
+      AccountPage.user
     } catch (error) {
       setErrorMessage(error.message);
     }
   };
-  
-  
   
   
 
@@ -55,7 +55,7 @@ const ProfileButton = ({ onLoginStatusChange }) => {
       const response = await fetch("http://localhost:5000/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ name: username, email, password }), // Отправляем в формате name, email, password
       });
 
       if (!response.ok) {
@@ -64,7 +64,9 @@ const ProfileButton = ({ onLoginStatusChange }) => {
       }
 
       alert("Registration successful!");
-      setIsSignUp(false);
+      setUsername("");
+      setEmail("");
+      setPassword("");
     } catch (error) {
       setErrorMessage(error.message);
     }
@@ -81,11 +83,11 @@ const ProfileButton = ({ onLoginStatusChange }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to send reset code");
+        throw new Error(errorData.error || "Failed to send reset code");
       }
 
-      alert(`Code sent to ${email}`);
-      setForgotPasswordStage(2);
+      setSuccessMessage(`Code sent to ${email}`);
+      setEmail("");
     } catch (error) {
       setErrorMessage(error.message);
     }
