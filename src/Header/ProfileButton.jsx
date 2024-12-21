@@ -90,7 +90,10 @@ const ProfileButton = ({ onLoginStatusChange }) => {
 
       {/* Меню профиля */}
       {isMenuOpen && isLoggedIn && (
-        <div className="absolute right-0 mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20">
+        <div
+          className="absolute right-0 mt-2 w-full bg-gray-700 rounded-lg shadow-lg z-20"
+          onMouseLeave={() => setMenuOpen(false)} // Закрыть меню, если курсор ушел
+        >
           <ul className="text-white">
             <li className="hover:bg-gray-600 rounded-lg px-4 py-2" onClick={() => navigate("/account")}>
               My Account
@@ -135,6 +138,31 @@ const ProfileButton = ({ onLoginStatusChange }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
+                {isSignUp && (
+                  <>
+                    <input
+                      type="email"
+                      className="w-full p-2 rounded-lg border bg-gray-700 text-white"
+                      placeholder="Email Address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                      type="password"
+                      className="w-full p-2 rounded-lg border bg-gray-700 text-white"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <input
+                      type="password"
+                      className="w-full p-2 rounded-lg border bg-gray-700 text-white"
+                      placeholder="Confirm Password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                  </>
+                )}
                 {!isSignUp && (
                   <input
                     type="password"
@@ -142,24 +170,6 @@ const ProfileButton = ({ onLoginStatusChange }) => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                  />
-                )}
-                {isSignUp && (
-                  <input
-                    type="email"
-                    className="w-full p-2 rounded-lg border bg-gray-700 text-white"
-                    placeholder="Email Address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                )}
-                {isSignUp && (
-                  <input
-                    type="password"
-                    className="w-full p-2 rounded-lg border bg-gray-700 text-white"
-                    placeholder="Confirm Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 )}
                 <button
@@ -256,5 +266,5 @@ const ProfileButton = ({ onLoginStatusChange }) => {
     </div>
   );
 };
-  
+
 export default ProfileButton;
