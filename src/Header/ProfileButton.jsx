@@ -1,89 +1,143 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import profile from "../assets/profile.png"; // Путь к картинке профиля
-import logo from "../assets/hyundai-img.png"; // Логотип Hyundai
-import { FaTimes } from "react-icons/fa"; // Иконка закрытия (крестик)
+import profile from "../assets/profile.png";
+import logo from "../assets/hyundai-img.png";
+import { FaTimes } from "react-icons/fa";
 
 const ProfileButton = ({ onLoginStatusChange }) => {
   const [isMenuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false); // Переключение между Sign In и Sign Up
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Статус входа
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
-  const [useradress, setUseradress] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [email, setEmail] = useState(""); // Для ввода email
-  const [code, setCode] = useState(""); // Для ввода кода
-  const [newPassword, setNewPassword] = useState(""); // Для нового пароля
-  const [confirmNewPassword, setConfirmNewPassword] = useState(""); // Для подтверждения нового пароля
-  const [forgotPasswordStage, setForgotPasswordStage] = useState(0); // Этапы восстановления пароля
+  const [code, setCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [forgotPasswordStage, setForgotPasswordStage] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
+  // Вход
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
+      const response = await fetch("http://localhost:5000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: username, password }), // Изменил username на email
       });
-
+  
       if (!response.ok) {
-          throw new Error('Invalid credentials');
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Invalid credentials");
       }
-
+  
       const data = await response.json();
+      localStorage.setItem("authToken", data.token);
       setIsLoggedIn(true);
       setModalOpen(false);
       onLoginStatusChange(true);
-      alert('Login successful!');
-  } catch (error) {
-      alert(error.message);
-  }
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
+  
+  
+  
+  
 
-  const handleSignUp = () => {
-    if (username && email && password && password === confirmPassword) {
-      // После успешной регистрации:
-      setIsLoggedIn(false); // Устанавливаем статус входа
-      setModalOpen(true); // Закрытие модального окна
-      setIsSignUp(false); // Переключаемся обратно на экран входа
-    } else {
-      alert("Please make sure all fields are filled correctly and passwords match.");
+  // Регистрация
+  const handleSignUp = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Registration failed");
+      }
+
+      alert("Registration successful!");
+      setIsSignUp(false);
+    } catch (error) {
+      setErrorMessage(error.message);
     }
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false); // Устанавливаем статус выхода
-    onLoginStatusChange(false);
-  };
+  // Запрос кода для восстановления пароля
+  const handleForgotPassword = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
-  const handleForgotPassword = () => {
-    if (email) {
-      alert(`Code sent to ${email}`); // Имитация отправки кода на email
-      setForgotPasswordStage(2); // Переход к следующему этапу
-    } else {
-      alert("Please enter your email.");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to send reset code");
+      }
+
+      alert(`Code sent to ${email}`);
+      setForgotPasswordStage(2);
+    } catch (error) {
+      setErrorMessage(error.message);
     }
   };
 
-  const handleVerifyCode = () => {
-    if (code) {
-      setForgotPasswordStage(3); // Переход к этапу смены пароля
-    } else {
-      alert("Please enter the code sent to your email.");
+  // Проверка кода восстановления
+  const handleVerifyCode = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/auth/verify-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Invalid code");
+      }
+
+      setForgotPasswordStage(3);
+    } catch (error) {
+      setErrorMessage(error.message);
     }
   };
 
-  const handleResetPassword = () => {
-    if (newPassword && newPassword === confirmNewPassword) {
-      setIsLoggedIn(false); // Успешная смена пароля
-      setModalOpen(true); // Закрытие модального окна
+  // Сброс пароля
+  const handleResetPassword = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/auth/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, newPassword }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to reset password");
+      }
+
+      alert("Password reset successful!");
       setForgotPasswordStage(0);
-    } else {
-      alert("Passwords do not match.");
+      setModalOpen(false);
+    } catch (error) {
+      setErrorMessage(error.message);
     }
+  };
+
+  // Выход
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsLoggedIn(false);
+    onLoginStatusChange(false);
   };
 
   return (
