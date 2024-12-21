@@ -84,6 +84,7 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
+
 // Сброс пароля
 export const resetPassword = async (req, res) => {
   const { email, resetCode, newPassword } = req.body;

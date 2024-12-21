@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import profile from "../assets/profile.png";
 
+
 const AccountPage = () => {
   const [userInfo, setUserInfo] = useState({
     username: "UserName",
